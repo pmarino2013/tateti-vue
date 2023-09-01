@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref, watch } from "vue";
-
+import Swal from "sweetalert2";
 const posiciones = ref([]);
 const winner = ref(false);
 const empate = ref(false);
@@ -12,9 +12,17 @@ onMounted(() => {
 watch(winner, (newWinner) => {
   if (newWinner) {
     setTimeout(() => {
-      alert("Ganaste!!");
-      InicializarJuego();
-      winner.value = false;
+      Swal.fire({
+        title: "GANASTE!!",
+        icon: "success",
+        allowOutsideClick: false,
+        confirmButtonText: "Ok",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          InicializarJuego();
+          winner.value = false;
+        }
+      });
     }, 500);
   }
 });
@@ -22,9 +30,17 @@ watch(winner, (newWinner) => {
 watch(empate, (newEmpate) => {
   if (newEmpate) {
     setTimeout(() => {
-      alert("Empate");
-      InicializarJuego();
-      empate.value = false;
+      Swal.fire({
+        title: "EMPATE",
+        icon: "warning",
+        allowOutsideClick: false,
+        confirmButtonText: "Ok",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          InicializarJuego();
+          empate.value = false;
+        }
+      });
     }, 500);
   }
 });
@@ -32,9 +48,17 @@ watch(empate, (newEmpate) => {
 watch(loser, (newLoser) => {
   if (newLoser) {
     setTimeout(() => {
-      alert("Perdiste :(");
-      InicializarJuego();
-      loser.value = false;
+      Swal.fire({
+        title: "PERDISTE!",
+        icon: "error",
+        allowOutsideClick: false,
+        confirmButtonText: "Ok",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          InicializarJuego();
+          loser.value = false;
+        }
+      });
     }, 500);
   }
 });
