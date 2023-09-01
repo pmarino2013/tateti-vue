@@ -16,7 +16,7 @@ watch(winner, (newWinner) => {
         title: "GANASTE!!",
         icon: "success",
         allowOutsideClick: false,
-        confirmButtonText: "Ok",
+        confirmButtonText: "Cerrar",
       }).then((result) => {
         if (result.isConfirmed) {
           InicializarJuego();
@@ -34,7 +34,7 @@ watch(empate, (newEmpate) => {
         title: "EMPATE",
         icon: "warning",
         allowOutsideClick: false,
-        confirmButtonText: "Ok",
+        confirmButtonText: "Cerrar",
       }).then((result) => {
         if (result.isConfirmed) {
           InicializarJuego();
@@ -52,7 +52,7 @@ watch(loser, (newLoser) => {
         title: "PERDISTE!",
         icon: "error",
         allowOutsideClick: false,
-        confirmButtonText: "Ok",
+        confirmButtonText: "Cerrar",
       }).then((result) => {
         if (result.isConfirmed) {
           InicializarJuego();
@@ -205,15 +205,22 @@ const bot = () => {
     <div class="row mt-5">
       <div v-for="(posicion, index) in posiciones" class="col-4">
         <div
-          class="card d-flex justify-content-center align-items-center my-2"
+          class="card d-flex justify-content-center align-items-center my-2 text-white"
+          :class="
+            posicion.done == 'X'
+              ? 'bg-success'
+              : posicion.done == 'O' && 'bg-danger'
+          "
           @click="marcarCasillero(index)"
         >
-          <div v-if="posicion.done == 'X' && posicion.jugador == 'player'">
-            <span class="simbolo">X</span>
-          </div>
-          <div v-else-if="posicion.done == 'O' && posicion.jugador == 'bot'">
-            <span class="simbolo">O</span>
-          </div>
+          <Transition>
+            <div v-if="posicion.done == 'X' && posicion.jugador == 'player'">
+              <span class="simbolo">X</span>
+            </div>
+            <div v-else-if="posicion.done == 'O' && posicion.jugador == 'bot'">
+              <span class="simbolo">O</span>
+            </div>
+          </Transition>
         </div>
       </div>
     </div>
@@ -225,5 +232,14 @@ const bot = () => {
 }
 .simbolo {
   font-size: 100px;
+}
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>
