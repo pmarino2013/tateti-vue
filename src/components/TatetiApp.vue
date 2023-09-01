@@ -78,12 +78,14 @@ const InicializarJuego = () => {
 };
 
 const marcarCasillero = (id) => {
-  if (!winner.value) {
-    posiciones.value[id].done = "X";
-    posiciones.value[id].jugador = "player";
-    posiciones.value[id].completo = true;
+  if (!posiciones.value[id].completo) {
+    if (!winner.value) {
+      posiciones.value[id].done = "X";
+      posiciones.value[id].jugador = "player";
+      posiciones.value[id].completo = true;
 
-    ganar();
+      ganar();
+    }
   }
 };
 
