@@ -15,6 +15,9 @@ watch(winner, (newWinner) => {
       Swal.fire({
         title: "GANASTE!!",
         icon: "success",
+        background: "#1A1A1A",
+        color: "#42D392",
+        confirmButtonColor: "#42D392",
         allowOutsideClick: false,
         confirmButtonText: "Cerrar",
       }).then((result) => {
@@ -34,6 +37,9 @@ watch(empate, (newEmpate) => {
         title: "EMPATE",
         icon: "warning",
         allowOutsideClick: false,
+        background: "#1A1A1A",
+        color: "#FFC107",
+        confirmButtonColor: "#FFC107",
         confirmButtonText: "Cerrar",
       }).then((result) => {
         if (result.isConfirmed) {
@@ -53,6 +59,9 @@ watch(loser, (newLoser) => {
         icon: "error",
         allowOutsideClick: false,
         confirmButtonText: "Cerrar",
+        background: "#1A1A1A",
+        color: "#DC3545",
+        confirmButtonColor: "#DC3545",
       }).then((result) => {
         if (result.isConfirmed) {
           InicializarJuego();
@@ -202,7 +211,7 @@ const bot = () => {
 </script>
 <template>
   <div class="container">
-    <div class="row mt-5">
+    <div class="row pb-3">
       <div v-for="(posicion, index) in posiciones" class="col-4">
         <div
           class="card d-flex justify-content-center align-items-center my-2 text-white"
@@ -228,7 +237,7 @@ const bot = () => {
 </template>
 <style scope>
 .card {
-  height: 200px;
+  height: 100px;
 }
 .simbolo {
   font-size: 100px;
@@ -241,5 +250,11 @@ const bot = () => {
 .v-enter-from,
 .v-leave-to {
   opacity: 0;
+}
+
+@media (min-width: 768px) {
+  .card {
+    height: 200px;
+  }
 }
 </style>
