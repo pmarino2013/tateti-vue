@@ -12,7 +12,20 @@ onMounted(() => {
 watch(winner, (newWinner) => {
   if (newWinner) {
     setTimeout(() => {
-      AlertMensaje();
+      Swal.fire({
+        title: "GANASTE!!",
+        icon: "success",
+        background: "#1A1A1A",
+        color: "#42D392",
+        confirmButtonColor: "#42D392",
+        allowOutsideClick: false,
+        confirmButtonText: "Cerrar",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          InicializarJuego();
+          winner.value = false;
+        }
+      });
     }, 500);
   }
 });
@@ -20,7 +33,20 @@ watch(winner, (newWinner) => {
 watch(empate, (newEmpate) => {
   if (newEmpate) {
     setTimeout(() => {
-      AlertMensaje();
+      Swal.fire({
+        title: "EMPATE",
+        icon: "warning",
+        allowOutsideClick: false,
+        background: "#1A1A1A",
+        color: "#FFC107",
+        confirmButtonColor: "#FFC107",
+        confirmButtonText: "Cerrar",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          InicializarJuego();
+          empate.value = false;
+        }
+      });
     }, 500);
   }
 });
@@ -28,55 +54,23 @@ watch(empate, (newEmpate) => {
 watch(loser, (newLoser) => {
   if (newLoser) {
     setTimeout(() => {
-      AlertMensaje();
+      Swal.fire({
+        title: "PERDISTE!",
+        icon: "error",
+        allowOutsideClick: false,
+        confirmButtonText: "Cerrar",
+        background: "#1A1A1A",
+        color: "#DC3545",
+        confirmButtonColor: "#DC3545",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          InicializarJuego();
+          loser.value = false;
+        }
+      });
     }, 500);
   }
 });
-
-const AlertMensaje = () => {
-  let estado = null;
-  if (winner.value) {
-    estado = {
-      title: "GANASTE!!",
-      icon: "success",
-      color: "#42D392",
-    };
-  }
-  if (empate.value) {
-    estado = {
-      title: "EMPATE",
-      icon: "warning",
-      color: "#FFC107",
-    };
-  }
-  if (loser.value) {
-    estado = {
-      title: "PERDISTE!",
-      icon: "error",
-      color: "#DC3545",
-    };
-  }
-  Swal.fire({
-    title: estado.title,
-    icon: estado.icon,
-    background: "#1A1A1A",
-    color: estado.color,
-    confirmButtonColor: estado.color,
-    allowOutsideClick: false,
-    confirmButtonText: "Cerrar",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      InicializarJuego();
-      if (winner) {
-        winner.value = false;
-      } else if (loser) {
-        loser.value = false;
-      } else {
-        empate.value = false;
-      }
-    }
-  });
-};
 
 const InicializarJuego = () => {
   posiciones.value = [
